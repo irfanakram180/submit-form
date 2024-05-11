@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-step Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: bisque;
+    }
+    .container {
+        display: flex;
+        padding: 20px;
+        justify-content: center;
+    }
+    form {
+        width: 30%;
+        padding: 20px;
+        background-color: #f9f9f9;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 150px;
+    }
+    button:hover {
+        background-color: #0ce21e;
+    }
+    #step2, #step3 {
+        display: none;
+    }
+    #confirmation {
+        background-color: #ffffff;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #confirmation h3 {
+        margin-top: 0;
+        color: blue;
+    }
+    #confirmation th,
+    #confirmation td {
+        border: 1px solid #ccc;
+        color: blue;
+        width: 100%;
+    }
+    #confirmation th {
+        background-color: #007bff;
+        color: white;
+        width: 100%;
+    }
+    .time-location {
+        padding: 10px;
+        background-color: white;
+        color: red;
+        height: 405px;
+        width: 25%;
+    }
+    .time-location img {
+        width: 90%;
+    }
+    @media screen and (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .time-location {
+            width: 100%;
+        }
+        button {
+            width: auto;
+        }
+        #confirmation {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <form method="post" action="https://script.google.com/macros/s/AKfycbxl-zBA4TgiCykOzwsZFnpRnBYx_zmEbSy1jAJSDylYMlCjEtyb75pixtLmTWNUg35m/exec" id="customer-form">
+            <div id="step1">
+                <h2>Enter Your Address</h2>
+                <input type="text" id="full_name" name="full_name" placeholder="Full Name" required><br>
+                <input type="email" id="email" name="email" placeholder="Email" required><br>
+                <input type="text" id="address" name="address" placeholder="Full Address" required><br>
+                <input type="text" id="country" name="country" placeholder="Country" required><br>
+                <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required><br>
+                <input type="text" id="whatsapp_number" name="whatsapp_number" placeholder="WhatsApp Number" required><br>
+                <button type="button" onclick="nextStep('step1')">Next</button>
+            </div>
+            <div id="step2">
+                <h2>Measurements</h2>
+                <input type="text" id="chest" name="chest" placeholder="Chest Measurement" required><br>
+                <input type="text" id="shoulder" name="shoulder" placeholder="Shoulder Width" required><br>
+                <input type="text" id="waist" name="waist" placeholder="Waist Measurement" required><br>
+                <input type="text" id="collar" name="collar" placeholder="Collar Size" required><br>
+                <input type="text" id="cuff" name="cuff" placeholder="Cuff Size" required><br>
+                <input type="text" id="shirt_length" name="shirt_length" placeholder="Shirt Length" required><br>
+                <input type="text" id="sleeve_length" name="sleeve_length" placeholder="Sleeve Length" required><br>
+                <button type="button" onclick="prevStep('step2')">Back</button>
+                <button type="button" onclick="nextStep('step2')">Next</button>
+            </div>
+            <div id="step3">
+                <div id="confirmation">
+                    <table>
+                        <tr>
+                            <th>Customer Details</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Full Name:</td>
+                            <td><span id="confirmed_full_name"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><span id="confirmed_email"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><span id="confirmed_address"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Country:</td>
+                            <td><span id="confirmed_country"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Postal Code:</td>
+                            <td><span id="confirmed_postal_code"></span></td>
+                        </tr>
+                        <tr>
+                            <td>WhatsApp Number:</td>
+                            <td><span id="confirmed_whatsapp_number"></span></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Measurement</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Chest:</td>
+                            <td><span id="confirmed_chest"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Shoulder:</td>
+                            <td><span id="confirmed_shoulder"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Waist:</td>
+                            <td><span id="confirmed_waist"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Collar:</td>
+                            <td><span id="confirmed_collar"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Cuff:</td>
+                            <td><span id="confirmed_cuff"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Shirt Length:</td>
+                            <td><span id="confirmed_shirt_length"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Sleeve Length:</td>
+                            <td><span id="confirmed_sleeve_length"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <button type="button" onclick="prevStep('step3')">Back</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="time-location">
+            <p id="time"></p>
+            <p id="date"></p>
+            <p id="day"></p>
+            <p id="user_country"></p>
+            <p id="user_city"></p>
+            <img src="https://img.freepik.com/premium-photo/modern-tailor-shop-with-sleek-design-innovative-technology-created-with-generative-ai_419341-3838.jpg" alt="Tailor Shop" />
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxl-zBA4TgiCykOzwsZFnpRnBYx_zmEbSy1jAJSDylYMlCjEtyb75pixtLmTWNUg35m/exec';
+        const form = document.forms['customer-form'];
+    
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    if (response.ok) {
+                        form.reset(); // Clear the form
+                        alert('Thank you! Your order has been submitted. We will contact you shortly.'); // Show alert
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .catch(error => console.error('Error!', error.message));
+        });
+        
+        function nextStep(currentStep) {
+            document.getElementById(currentStep).style.display = 'none';
+            if (currentStep === 'step1') {
+                document.getElementById('step2').style.display = 'block';
+            } else if (currentStep === 'step2') {
+                document.getElementById('step3').style.display = 'block';
+                populateConfirmation();
+            }
+        }
+        function prevStep(currentStep) {
+            document.getElementById(currentStep).style.display = 'none';
+            if (currentStep === 'step2') {
+                document.getElementById('step1').style.display = 'block';
+            } else if (currentStep === 'step3') {
+                document.getElementById('step2').style.display = 'block';
+            }
+        }
+        function populateConfirmation() {
+            document.getElementById('confirmed_full_name').textContent = document.getElementById('full_name').value;
+            document.getElementById('confirmed_email').textContent = document.getElementById('email').value;
+            document.getElementById('confirmed_address').textContent = document.getElementById('address').value;
+            document.getElementById('confirmed_country').textContent = document.getElementById('country').value;
+            document.getElementById('confirmed_postal_code').textContent = document.getElementById('postal_code').value;
+            document.getElementById('confirmed_whatsapp_number').textContent = document.getElementById('whatsapp_number').value;
+            document.getElementById('confirmed_chest').textContent = document.getElementById('chest').value;
+            document.getElementById('confirmed_shoulder').textContent = document.getElementById('shoulder').value;
+            document.getElementById('confirmed_waist').textContent = document.getElementById('waist').value;
+            document.getElementById('confirmed_collar').textContent = document.getElementById('collar').value;
+            document.getElementById('confirmed_cuff').textContent = document.getElementById('cuff').value;
+            document.getElementById('confirmed_shirt_length').textContent = document.getElementById('shirt_length').value;
+            document.getElementById('confirmed_sleeve_length').textContent = document.getElementById('sleeve_length').value;
+            fetchUserLocation();
+        }
+        function fetchUserLocation() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('user_country').textContent = 'Country: ' + data.countryName;
+                            document.getElementById('user_city').textContent = 'City: ' + data.city;
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            } else {
+                console.log('Geolocation is not available');
+            }
+        }
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // handle midnight
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            const timeString = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+            document.getElementById('time').textContent = 'Time: ' + timeString;
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
+            const dayString = now.toLocaleDateString(undefined, { weekday: 'long' });
+            document.getElementById('date').textContent = 'Date: ' + dateString;
+            document.getElementById('day').textContent = 'Day: ' + dayString;
+            fetchUserLocation();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
